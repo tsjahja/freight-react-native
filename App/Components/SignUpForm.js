@@ -5,12 +5,13 @@ import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 
 import { cargoService as CargoActions } from '../Services/CargoService'
-import { COMPANY, CUSTOMER, INDIVIDUAL, TRANSPORTER, validators } from '../Helper/SignUpFormHelper'
+import { COMPANY, INDIVIDUAL, validators } from '../Helper/SignUpFormHelper'
 import Styles from './SignUpFormStyle'
 import { Images } from '../Theme'
 import { OpenSansText } from './StyledText'
 import Style from './CargoForm/CargoFormStyle'
 import { authService as AuthActions } from '../Services/AuthService'
+import { CUSTOMER, TRANSPORTER } from '../Helper/AuthHelper'
 
 
 class SignUpForm extends Component {

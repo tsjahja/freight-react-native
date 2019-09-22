@@ -39,8 +39,9 @@ async function getToken() {
 async function clearToken() {
   try {
     await AsyncStorage.removeItem('token')
+    await AsyncStorage.removeItem('type')
   } catch(error) {
-    console.error("Error in deleting user's token, error=" + error)
+    console.error("Error in deleting user's token and type, error=" + error)
   }
 }
 

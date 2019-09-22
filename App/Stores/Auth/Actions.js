@@ -10,7 +10,7 @@ const { Types, Creators } = createActions({
   // Sign In
   signIn: ['payload'],
   signInLoading: null,
-  signInSuccess: ['token'],
+  signInSuccess: ['auth'],
   signInFailure: ['error'],
 
   // Sign Up

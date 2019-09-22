@@ -32,9 +32,10 @@ export function* signIn(payload) {
     yield put(AuthActions.signInLoading())
     const auth = yield call(authService.signIn, payload)
 
-    if (!auth.error && !!auth.token) {
+    if (!auth.error && !!auth.token && !!auth.type) {
       AsyncStorage.setItem('token', auth.token)
-      yield put(AuthActions.signInSuccess(auth.token))
+      AsyncStorage.setItem('type', auth.type)
+      yield put(AuthActions.signInSuccess(auth))
 
     } else if (auth.error && auth.error.description) {
       yield put(AuthActions.signInFailure(auth.error.description))

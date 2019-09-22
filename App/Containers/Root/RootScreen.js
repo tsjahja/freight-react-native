@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import ConfigActions from 'App/Stores/Config/Actions'
 import AuthActions from 'App/Stores/Auth/Actions'
 import { PropTypes } from 'prop-types'
+import { CUSTOMER, TRANSPORTER } from '../../Helper/AuthHelper'
 
 class RootScreen extends Component {
   componentDidMount() {
@@ -16,10 +17,18 @@ class RootScreen extends Component {
     this.props.isSignedIn()
 
     // When those operations are finished we redirect to the main screen
-    if (!this.props.configIsLoading && !this.props.configErrorMessage && !this.props.isSignedInIsLoading) {
-      if (!!this.props.token && !this.props.isSignedInErrorMessage) {
+    console.log('Inside Root Screen, !this.props.configIsLoading:' + !this.props.configIsLoading + ' , !this.props.configErrorMessage:' + !!this.props.configErrorMessage)
+
+    if (!this.props.configIsLoading && !this.props.configErrorMessage) {
+      if (!!this.props.token && !!this.props.type && !!this.props.isSignedInErrorMessage) {
         console.log('Inside Root Screen, !!this.props.token:' + !!this.props.token + ' , this.props.token:' + this.props.token)
         NavigationService.navigateAndReset('CargoOwner')
+        if (this.props.type === CUSTOMER) {
+          console.log('inside Root Screen, navigating to CUSTOMER')
+          NavigationService.navigateAndReset('CargoOwner')
+        } else if (this.props.type === TRANSPORTER) {
+          console.log('inside Root Screen, navigating to TRANSPORTER')
+        }
       } else {
         console.log('Inside Root Screen else statement, !!this.props.token:' + !!this.props.token)
         NavigationService.navigateAndReset('SignIn')
@@ -43,6 +52,7 @@ class RootScreen extends Component {
 
 RootScreen.propTypes = {
   token: PropTypes.string,
+  type: PropTypes.string,
   isSignedIn: PropTypes.func,
   isSignedInIsLoading: PropTypes.bool,
   isSignedInErrorMessage: PropTypes.string,
@@ -53,6 +63,7 @@ RootScreen.propTypes = {
 
 const mapStateToProps = (state) => ({
   token: state.auth.token,
+  type: state.auth.type,
   isSignedInIsLoading: state.auth.isSignedInIsLoading,
   isSignedInErrorMessage: state.auth.isSignedInErrorMessage,
   configIsLoading: state.config.configIsLoading,

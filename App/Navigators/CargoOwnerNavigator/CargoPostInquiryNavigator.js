@@ -6,7 +6,6 @@ import {
 import CargoInquiryPostScreen from '../../Containers/CargoOwner/CargoInquiryPostScreen'
 import CargoFormModal from '../../Components/CargoForm/CargoFormModal'
 import Colors from '../../Theme/Colors'
-import InquiryNavigator from './InquiryNavigator'
 
 const CargoPostInquiryNavigator = createStackNavigator(
   {
@@ -15,9 +14,12 @@ const CargoPostInquiryNavigator = createStackNavigator(
       navigationOptions: {
         headerStyle: {
         },
-        headerTitle: 'Freight',
+        headerTitle: 'Atlas',
         headerTitleStyle: {
+          textAlign: 'center',
+          flex: 1,
           color: Colors.main,
+          fontSize: 25,
         }
       },
     },

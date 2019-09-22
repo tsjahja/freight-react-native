@@ -11,6 +11,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import NavigationService from '../../Services/NavigationService'
 import AuthActions from 'App/Stores/Auth/Actions'
+import { CUSTOMER, TRANSPORTER } from '../../Helper/AuthHelper'
 
 
 class SignInScreen extends Component {
@@ -22,7 +23,22 @@ class SignInScreen extends Component {
     }
   }
 
+  componentDidMount() {
+
+  }
+
   render() {
+    if (!this.props.signInIsLoading && !this.props.signInErrorMessage && !!this.props.token && !!this.props.type) {
+      console.log('inside SignInScreen, auth: ' + JSON.stringify(this.props.auth))
+      if (this.props.type === CUSTOMER) {
+        console.log('inside SignInScreen, navigating to CUSTOMER')
+        NavigationService.navigateAndReset('CargoOwner')
+      } else if (this.props.type === TRANSPORTER) {
+        console.log('inside SignInScreen, navigating to TRANSPORTER')
+      }
+    } else {
+      console.log('inside SignInScreen outside if statement, props: ' + JSON.stringify(this.props))
+    }
     return (
       <View
         style={Styles.container}
@@ -92,12 +108,6 @@ class SignInScreen extends Component {
                 }
                 console.log('calling this.props.signIn with payload:' + JSON.stringify(payload))
                 this.props.signIn(payload)
-                if (!this.props.signInIsLoading && !this.props.signInErrorMessage && !!this.props.token) {
-                  console.log('inside SignInScreen, auth: ' + JSON.stringify(this.props.auth))
-                } else {
-                  console.log('inside SignInScreen outside if statement, auth: ' + JSON.stringify(this.props.auth))
-                }
-                NavigationService.navigateAndReset('CargoOwner')
               }}>
               <OpenSansText style={{fontSize: 18, color: 'white'}}>Sign in</OpenSansText>
             </TouchableOpacity>
@@ -119,13 +129,15 @@ class SignInScreen extends Component {
 
 SignInScreen.propTypes = {
   navigation: PropTypes.object,
+  token: PropTypes.string,
+  type: PropTypes.string,
   signInIsLoading: PropTypes.bool,
   signInErrorMessage: PropTypes.string,
 }
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
   token: state.auth.token,
+  type: state.auth.type,
   signInIsLoading: state.auth.signInIsLoading,
   signInErrorMessage: state.auth.signInErrorMessage,
 })

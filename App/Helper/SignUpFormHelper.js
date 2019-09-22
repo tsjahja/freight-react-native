@@ -3,8 +3,6 @@ import { GiftedFormManager } from 'react-native-gifted-form'
 
 export const INDIVIDUAL = 'INDIVIDUAL'
 export const COMPANY = 'COMPANY'
-export const CUSTOMER = 'CUSTOMER'
-export const TRANSPORTER = 'TRANSPORTER'
 
 export const validators = {
   phone: {
